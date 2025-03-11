@@ -1,0 +1,9 @@
+Timestamp,Server,Metric,Value,Alert Type
+2025-03-11 00:41:50,server_2,CPU,97,High CPU Usage
+Timestamp,Server,Metric,Value,Alert Type
+2025-03-11 00:41:52,server_2,Memory,94,High Memory Usage
+Timestamp,Server,Metric,Value,Alert Type
+Timestamp,Server,Metric,Value,Alert Type
+2025-03-11 00:41:56,server_2,Memory,91,High Memory Usage
+Timestamp,Server,Metric,Value,Alert Type
+2025-03-11 00:41:58,server_2,CPU,88,High CPU Usage
