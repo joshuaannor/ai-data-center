@@ -1,0 +1,17 @@
+{
+    "server_1": {
+        "cpu_usage": 75,
+        "memory_usage": 60,
+        "disk_usage": 50
+    },
+    "server_2": {
+        "cpu_usage": 90,
+        "memory_usage": 85,
+        "disk_usage": 70
+    },
+    "server_3": {
+        "cpu_usage": 30,
+        "memory_usage": 40,
+        "disk_usage": 20
+    }
+}
