@@ -169,3 +169,15 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Go build artifacts
+*.exe
+*.out
+*.test
+/bin/
+/pkg/
+/vendor/
+
+# Rust build artifacts
+/target/
+Cargo.lock
