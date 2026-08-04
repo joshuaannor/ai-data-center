@@ -1,0 +1,98 @@
+# AI Data Center → Portfolio Upgrade Plan
+
+Goal: turn this project from a working prototype into a portfolio piece that demonstrates full-stack + cloud + data skills for job hunting (healthtech-leaning, but broadly applicable).
+
+Right now this project proves you can build a monitoring loop. It doesn't yet prove you can build and deploy a real product. This plan closes that gap in stages, each one a real, describable skill you can talk about in an interview.
+
+---
+
+## Stage 0 — Fix what's broken (do this first)
+
+Can't build on a foundation that doesn't run.
+
+- [ ] Replace hardcoded path in `app.py` (`/workspaces/ai-data-center/...`) with a relative path or environment variable
+- [ ] Replace the stale Codespaces URL in `script.js` with a configurable API URL (env variable or config file)
+- [ ] Connect `monitor.py`'s simulated updates to the same data source `app.py` reads from, so the dashboard reflects live changes instead of the static seed file
+
+**Why it matters for interviews:** shows you can debug and stabilize an existing codebase, not just write new code.
+
+---
+
+## Stage 1 — Give it a real database
+
+Replace the flat JSON file with MongoDB (you already know this — reuse PodSight patterns).
+
+- [ ] Stand up a MongoDB instance (local, or MongoDB Atlas free tier)
+- [ ] Store server metrics as time-series documents instead of overwriting a static JSON file
+- [ ] Update `app.py` to read/write from MongoDB instead of the file
+- [ ] Update `monitor.py` to insert new readings into MongoDB each cycle instead of rewriting JSON
+
+**Why it matters:** this is the single highest-leverage change. "Static file" → "time-series database" is the difference between a toy and a real monitoring system, and it's a skill you already have.
+
+---
+
+## Stage 2 — Rebuild the frontend properly
+
+Swap the vanilla HTML/JS for Vue/Nuxt — same stack as PodSight, so this is fast for you, and it's a stronger frontend story than plain JS.
+
+- [ ] Rebuild the dashboard in Nuxt/Vue
+- [ ] Add a simple line chart showing metric trends over time (not just current snapshot) — libraries like Chart.js or ApexCharts work well here
+- [ ] Add basic alert history view (pulling from the MongoDB collection instead of the CSV log)
+
+**Why it matters:** "vanilla JS polling an endpoint" reads as a tutorial project. "Vue dashboard with live charts backed by a real database" reads as a product.
+
+---
+
+## Stage 3 — Deploy it to AWS
+
+This is your AWS Developer Associate refresh, done hands-on instead of via review videos.
+
+- [ ] Host the frontend on S3 + CloudFront
+- [ ] Deploy the Flask API (or rewrite it in Go, matching your PodSight backend) on Lambda + API Gateway, or a small EC2 instance if Lambda's cold starts get annoying for a demo
+- [ ] Move MongoDB to Atlas (cloud-hosted) if not already, or use DynamoDB if you want more AWS-native practice
+- [ ] Set up basic IAM roles/permissions correctly (least privilege — this is worth doing right, since it's a common interview topic)
+
+**Why it matters:** "I can deploy and reason about a live cloud-hosted app" directly answers the AWS gap, using real infrastructure instead of a cert refresher alone.
+
+---
+
+## Stage 4 — Add the healthtech framing
+
+You don't need real patient data. Reframe what you already have.
+
+- [ ] Swap "server metrics" for something health-flavored — e.g. simulate patient vitals (heart rate, blood oxygen, temperature) instead of CPU/memory/disk
+- [ ] Rename anomaly thresholds to clinical-sounding alerts (e.g. "Elevated Heart Rate," "Low SpO2") — same detection logic, different domain
+- [ ] Add a short note in the README explaining this uses synthetic data only, modeled after real-time patient monitoring systems
+
+**Why it matters:** this single reframe turns a generic "data center dashboard" into "real-time patient vitals monitoring system" — same code, dramatically more relevant portfolio piece for healthtech interviews.
+
+---
+
+## Stage 5 — Polish for presentation
+
+- [ ] Write a proper README (structure, setup instructions, architecture diagram — you already do this well from PodSight)
+- [ ] Add a short architecture diagram (even a simple one: browser → API → database → alert log)
+- [ ] Deploy a live demo link, not just a GitHub repo — recruiters and interviewers are far more likely to click a live link than clone a repo
+- [ ] Add 2-3 sentences at the top of the README framing the project's origin: "Originally a server monitoring prototype, adapted to demonstrate patterns used in real-time health monitoring systems"
+
+---
+
+## Suggested order of attack
+
+Given your current strengths (full-stack) and gaps (AWS, cloud deployment), the highest ROI path is:
+
+1. **Stage 0** (fix bugs) — quick, necessary
+2. **Stage 1** (MongoDB) — fast for you, high signal
+3. **Stage 3** (AWS deploy) — this is the actual AWS practice you need, skip straight here before the frontend rebuild if time is tight
+4. **Stage 4** (healthtech reframe) — cheap, high narrative payoff
+5. **Stage 2** (Vue rebuild) — nice to have, do if time allows
+6. **Stage 5** (polish) — do last, once the substance is real
+
+If you only have time for a few weekends, do Stage 0 → Stage 1 → Stage 3 → Stage 4. That alone turns this into: *"I built and deployed a real-time monitoring system with a MongoDB time-series backend, hosted on AWS, modeled after patient vitals monitoring."* That's a genuinely strong line on a resume and a real conversation starter in interviews.
+
+## What this project will prove once upgraded
+
+- Full-stack ownership (frontend, backend, database) — already your strength, reinforced
+- Cloud deployment experience (AWS) — closes your stated gap
+- Time-series data handling — reinforces your MongoDB/PodSight experience in a second, standalone context
+- Healthtech-relevant framing — without needing access to real health data or a healthtech job first
