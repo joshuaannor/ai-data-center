@@ -7,7 +7,27 @@ h1 {
     color: #007bff;
 }
 
+.subtitle {
+    color: #555;
+    font-size: 14px;
+}
+
 #metrics {
     margin-top: 20px;
     font-size: 18px;
+}
+
+.unit-card {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    min-width: 200px;
+    text-align: left;
+}
+
+.error {
+    color: #c0392b;
+    font-weight: bold;
 }
