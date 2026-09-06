@@ -181,3 +181,7 @@ cython_debug/
 # Rust build artifacts
 /target/
 Cargo.lock
+
+# Node
+node_modules/
+npm-debug.log*

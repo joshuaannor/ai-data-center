@@ -1,9 +1,18 @@
-"use strict";
+interface UnitMetrics {
+    bed_occupancy_rate: number;
+    avg_wait_time_minutes: number;
+    patient_backlog: number;
+}
+
+type FacilityMetrics = Record<string, UnitMetrics>;
+
 const API_URL = "http://localhost:5000/metrics";
-async function fetchMetrics() {
+
+async function fetchMetrics(): Promise<void> {
     const response = await fetch(API_URL);
-    const data = await response.json();
-    const metricsDiv = document.getElementById('metrics');
+    const data: FacilityMetrics = await response.json();
+    const metricsDiv = document.getElementById('metrics') as HTMLDivElement;
+
     metricsDiv.innerHTML = "";
     for (const unit in data) {
         const unitMetrics = data[unit];
@@ -14,5 +23,6 @@ async function fetchMetrics() {
         metricsDiv.innerHTML += html;
     }
 }
+
 setInterval(fetchMetrics, 3000);
 fetchMetrics();

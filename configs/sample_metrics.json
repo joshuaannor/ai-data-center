@@ -1,17 +1,17 @@
 {
-    "server_1": {
-        "cpu_usage": 75,
-        "memory_usage": 60,
-        "disk_usage": 50
+    "unit_1": {
+        "bed_occupancy_rate": 72,
+        "avg_wait_time_minutes": 35,
+        "patient_backlog": 8
     },
-    "server_2": {
-        "cpu_usage": 90,
-        "memory_usage": 85,
-        "disk_usage": 70
+    "unit_2": {
+        "bed_occupancy_rate": 94,
+        "avg_wait_time_minutes": 75,
+        "patient_backlog": 22
     },
-    "server_3": {
-        "cpu_usage": 30,
-        "memory_usage": 40,
-        "disk_usage": 20
+    "unit_3": {
+        "bed_occupancy_rate": 55,
+        "avg_wait_time_minutes": 20,
+        "patient_backlog": 3
     }
 }

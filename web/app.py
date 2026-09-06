@@ -1,10 +1,11 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 import json
+import os
 
 app = Flask(__name__)
-CORS(app) 
-CONFIG_FILE = "/workspaces/ai-data-center/configs/sample_metrics.json"
+CORS(app)
+CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "configs", "sample_metrics.json")
 
 
 def load_metrics():

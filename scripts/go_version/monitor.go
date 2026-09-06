@@ -1,36 +1,36 @@
 package main
 
 import (
-    "encoding/json"
-    "fmt"
-    "io/ioutil"
-    "log"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
 )
 
-// Define a struct for server metrics
-type ServerMetrics struct {
-    CPUUsage    int `json:"cpu_usage"`
-    MemoryUsage int `json:"memory_usage"`
-    DiskUsage   int `json:"disk_usage"`
+// Define a struct for hospital unit metrics
+type UnitMetrics struct {
+	BedOccupancyRate   int `json:"bed_occupancy_rate"`
+	AvgWaitTimeMinutes int `json:"avg_wait_time_minutes"`
+	PatientBacklog     int `json:"patient_backlog"`
 }
 
-func loadMetrics(filename string) map[string]ServerMetrics {
-    data, err := ioutil.ReadFile(filename)
-    if err != nil {
-        log.Fatalf("Error loading metrics: %v", err)
-    }
+func loadMetrics(filename string) map[string]UnitMetrics {
+	data, err := ioutil.ReadFile(filename)
+	if err != nil {
+		log.Fatalf("Error loading metrics: %v", err)
+	}
 
-    var metrics map[string]ServerMetrics
-    err = json.Unmarshal(data, &metrics)
-    if err != nil {
-        log.Fatalf("Error parsing JSON: %v", err)
-    }
+	var metrics map[string]UnitMetrics
+	err = json.Unmarshal(data, &metrics)
+	if err != nil {
+		log.Fatalf("Error parsing JSON: %v", err)
+	}
 
-    return metrics
+	return metrics
 }
 
 func main() {
-    fmt.Println("🔍 AI Data Center Monitoring (Go Version) Started...")
-    metrics := loadMetrics("configs/sample_metrics.json")
-    fmt.Printf("Loaded Metrics: %+v\n", metrics)
+	fmt.Println("🏥 Healthcare Facility Operations Monitoring (Go Version) Started...")
+	metrics := loadMetrics("configs/sample_metrics.json")
+	fmt.Printf("Loaded Metrics: %+v\n", metrics)
 }

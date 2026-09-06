@@ -21,37 +21,37 @@ def load_metrics():
         return {}
 
 def simulate_data(metrics):
-    """Randomly adjusts server metrics to simulate real-time changes."""
-    for server, data in metrics.items():
-        data["cpu_usage"] = max(0, min(100, data["cpu_usage"] + random.randint(-10, 10)))
-        data["memory_usage"] = max(0, min(100, data["memory_usage"] + random.randint(-10, 10)))
-        data["disk_usage"] = max(0, min(100, data["disk_usage"] + random.randint(-5, 5)))
+    """Randomly adjusts unit metrics to simulate real-time changes."""
+    for unit, data in metrics.items():
+        data["bed_occupancy_rate"] = max(0, min(100, data["bed_occupancy_rate"] + random.randint(-10, 10)))
+        data["avg_wait_time_minutes"] = max(0, data["avg_wait_time_minutes"] + random.randint(-10, 10))
+        data["patient_backlog"] = max(0, data["patient_backlog"] + random.randint(-5, 5))
     return metrics
 
 def detect_anomalies(metrics):
-    """Detects anomalies in CPU, memory, and disk usage and logs them."""
+    """Detects anomalies in bed occupancy, wait time, and patient backlog and logs them."""
     with open("logs/monitoring_alerts.csv", mode="a", newline="") as file:
         writer = csv.writer(file)
-        writer.writerow(["Timestamp", "Server", "Metric", "Value", "Alert Type"])
+        writer.writerow(["Timestamp", "Unit", "Metric", "Value", "Alert Type"])
 
-        for server, data in metrics.items():
-            if data["cpu_usage"] > 85:
-                alert = f"⚠ High CPU usage detected on {server}: {data['cpu_usage']}%"
+        for unit, data in metrics.items():
+            if data["bed_occupancy_rate"] > 90:
+                alert = f"⚠ High bed occupancy detected on {unit}: {data['bed_occupancy_rate']}%"
                 print(alert)
                 logging.warning(alert)
-                writer.writerow([time.strftime("%Y-%m-%d %H:%M:%S"), server, "CPU", data["cpu_usage"], "High CPU Usage"])
+                writer.writerow([time.strftime("%Y-%m-%d %H:%M:%S"), unit, "Bed Occupancy Rate", data["bed_occupancy_rate"], "High Bed Occupancy"])
 
-            if data["memory_usage"] > 90:
-                alert = f"⚠ High Memory usage detected on {server}: {data['memory_usage']}%"
+            if data["avg_wait_time_minutes"] > 60:
+                alert = f"⚠ Long wait time detected on {unit}: {data['avg_wait_time_minutes']} min"
                 print(alert)
                 logging.warning(alert)
-                writer.writerow([time.strftime("%Y-%m-%d %H:%M:%S"), server, "Memory", data["memory_usage"], "High Memory Usage"])
+                writer.writerow([time.strftime("%Y-%m-%d %H:%M:%S"), unit, "Avg Wait Time Minutes", data["avg_wait_time_minutes"], "Long Wait Time"])
 
-            if data["disk_usage"] > 80:
-                alert = f"⚠ High Disk usage detected on {server}: {data['disk_usage']}%"
+            if data["patient_backlog"] > 15:
+                alert = f"⚠ High patient backlog detected on {unit}: {data['patient_backlog']}"
                 print(alert)
                 logging.warning(alert)
-                writer.writerow([time.strftime("%Y-%m-%d %H:%M:%S"), server, "Disk", data["disk_usage"], "High Disk Usage"])
+                writer.writerow([time.strftime("%Y-%m-%d %H:%M:%S"), unit, "Patient Backlog", data["patient_backlog"], "High Patient Backlog"])
 
 
 if __name__ == "__main__":
